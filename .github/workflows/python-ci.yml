@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    retention-days: 7
 
     steps:
     - name: Checkout code
@@ -27,4 +26,11 @@ jobs:
 
     - name: Run script with logging
       run: |
-        python main.py
+        python main.py > app.log 2>&1
+
+    - name: Upload log file
+      uses: actions/upload-artifact@v3
+      with:
+        name: logs
+        path: app.log
+        retention-days: 7
